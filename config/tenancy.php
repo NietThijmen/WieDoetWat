@@ -37,7 +37,7 @@ return [
      * To configure their behavior, see the config keys below.
      */
     'bootstrappers' => [
-        DatabaseTenancyBootstrapper::class,
+//        DatabaseTenancyBootstrapper::class,
         CacheTenancyBootstrapper::class,
         FilesystemTenancyBootstrapper::class,
         QueueTenancyBootstrapper::class,

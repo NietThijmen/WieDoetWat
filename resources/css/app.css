@@ -5,6 +5,82 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Noto Serif', serif;
+    --font-body: 'Nunito', sans-serif;
+
+    /* Primary — Blue */
+    --color-zz-primary-50: #eef0f6;
+    --color-zz-primary-100: #cbd1e3;
+    --color-zz-primary-200: #b2bbd5;
+    --color-zz-primary-300: #8f9cc2;
+    --color-zz-primary-400: #7989b6;
+    --color-zz-primary: #586ba4;
+    --color-zz-primary-600: #506195;
+    --color-zz-primary-700: #3e4c74;
+    --color-zz-primary-800: #303b5a;
+    --color-zz-primary-900: #252d45;
+
+    /* Secondary — Orange */
+    --color-zz-secondary-50: #fdf3e9;
+    --color-zz-secondary-100: #f8d9ba;
+    --color-zz-secondary-200: #f5c698;
+    --color-zz-secondary-300: #f0ad69;
+    --color-zz-secondary-400: #ed9d4c;
+    --color-zz-secondary: #e9841f;
+    --color-zz-secondary-600: #d4781c;
+    --color-zz-secondary-700: #a55e16;
+    --color-zz-secondary-800: #804911;
+    --color-zz-secondary-900: #62370d;
+
+    /* Background — Warm Beige */
+    --color-zz-background-50: #fdfcfb;
+    --color-zz-background-300: #f4f3ee;
+    --color-zz-background-400: #f0eee6;
+    --color-zz-background: #edeae1;
+    --color-zz-background-600: #e8e5da;
+    --color-zz-background-700: #d3d0c6;
+
+    /* Text */
+    --color-zz-text: #2d2d2d;
+    --color-zz-text-light: #7f7f7f;
+    --color-zz-text-white: #ececec;
+
+    /* Neutrals */
+    --color-zz-white: #ffffff;
+    --color-zz-black: #000000;
 }
+
+html {
+    font-size: 10px;
+}
+
+body {
+    @apply flex flex-col font-body bg-zz-background;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+    scroll-padding-top: 30vh;
+}
+
+body > main {
+    flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+}
+
+h1 { font-size: clamp(20px, 13vw, 12.8rem); }
+h2 { font-size: clamp(18px, 10vw, 10rem); }
+h3 { font-size: clamp(16px, 8vw, 8rem); }
+h4 { font-size: clamp(14px, 6vw, 6rem); }
+h5 { font-size: clamp(12px, 4vw, 4.9rem); }
+p  { font-size: 2.0rem; line-height: 3.0rem; @apply font-body; }
+
+.title { @apply text-zz-primary; }
