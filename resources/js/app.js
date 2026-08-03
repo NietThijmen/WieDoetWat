@@ -1,3 +1,5 @@
 import { createInertiaApp } from '@inertiajs/svelte'
 
-createInertiaApp()
+createInertiaApp({
+    lazy: true,
+})
