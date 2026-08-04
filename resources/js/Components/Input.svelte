@@ -31,8 +31,8 @@
         {disabled}
         {placeholder}
         {autocomplete}
-        {value}
-        {oninput}
+        bind:value={value}
+        oninput={handleInput}
         class="flex h-[34px] w-full border-2 border-zz-background-600 border-solid rounded-md bg-zz-background-50 px-3 font-body text-[16px] text-zz-text outline-none transition-colors duration-200 caret-zz-primary placeholder:text-zz-text-light focus:border-zz-primary {error ? 'border-red-500' : ''} {disabled ? 'opacity-50 cursor-not-allowed' : ''} {className}"
         {...restProps}
     />
