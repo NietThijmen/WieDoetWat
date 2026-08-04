@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Tenant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 
 test('the central domain homepage returns a successful response', function () {
     $response = $this->get('http://wie-doet-wat.test/');
@@ -14,7 +16,7 @@ test('the tenant domain homepage returns a successful response', function () {
         $tenant = Tenant::create([
             'id' => 'test-tenant',
         ]);
-        $tenant->domains()->create(['domain' => 'test-tenant.wie-doet-wat.test']);
+        $tenant->domains()->create(['domain' => 'test-tenant']);
     });
 
     $response = $this->get('http://test-tenant.wie-doet-wat.test/');
