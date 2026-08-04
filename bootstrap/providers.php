@@ -7,5 +7,5 @@ use App\Providers\TenancyServiceProvider;
 return [
     AppServiceProvider::class,
     FortifyServiceProvider::class,
-    TenancyServiceProvider::class
+    TenancyServiceProvider::class,
 ];

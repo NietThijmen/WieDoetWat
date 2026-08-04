@@ -14,7 +14,7 @@ return new class extends Migration
 
             $table->unique([
                 'email',
-                'tenant_id'
+                'tenant_id',
             ]);
         });
     }
