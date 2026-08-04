@@ -4,10 +4,6 @@
     import Input from '@/Components/Input.svelte'
     import Label from '@/Components/Label.svelte'
 
-    let {
-        existing_tenant = null,
-    } = $props()
-
     const form = useForm({
         name: '',
         email: '',
@@ -116,46 +112,36 @@
                 />
             </div>
 
-            {#if existing_tenant}
-                <div class="flex flex-col gap-2">
-                    <Label>Huishouden</Label>
-                    <div class="flex h-[34px] w-full items-center rounded-md border-2 border-zz-background-600 bg-zz-background-50/50 px-3">
-                        <span class="font-body text-[16px] text-zz-text">{existing_tenant}</span>
-                        <span class="ml-1 font-body text-[14px] text-zz-text-light">.wie-doet-wat.test</span>
-                    </div>
-                </div>
-            {:else}
-                <div class="flex flex-col gap-2">
-                    <Label for="subdomain">Subdomein voor jullie huishouden</Label>
-                    <div class="relative">
-                        <Input
-                            id="subdomain"
-                            type="text"
-                            placeholder="ons-huishouden"
-                            autocomplete="off"
-                            required
-                            value={form.subdomain}
-                            oninput={handleSubdomainInput}
-                            error={form.errors.subdomain}
-                            class={subdomainTouched ? subdomainStatusClass : ''}
-                        />
-                        {#if subdomainTouched && subdomainStatusText}
-                            <p class="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] {subdomainStatusColor}">
-                                {#if isCheckingSubdomain}
-                                    ⏳ {subdomainStatusText}
-                                {:else}
-                                    {subdomainStatusText}
-                                {/if}
-                            </p>
-                        {/if}
-                    </div>
-                    {#if form.subdomain.length >= 3}
-                        <p class="text-[12px] text-zz-text-light">
-                            Jullie adres wordt: <strong>{form.subdomain}.wie-doet-wat.test</strong>
+            <div class="flex flex-col gap-2">
+                <Label for="subdomain">Subdomein voor jullie huishouden</Label>
+                <div class="relative">
+                    <Input
+                        id="subdomain"
+                        type="text"
+                        placeholder="ons-huishouden"
+                        autocomplete="off"
+                        required
+                        value={form.subdomain}
+                        oninput={handleSubdomainInput}
+                        error={form.errors.subdomain}
+                        class={subdomainTouched ? subdomainStatusClass : ''}
+                    />
+                    {#if subdomainTouched && subdomainStatusText}
+                        <p class="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] {subdomainStatusColor}">
+                            {#if isCheckingSubdomain}
+                                ⏳ {subdomainStatusText}
+                            {:else}
+                                {subdomainStatusText}
+                            {/if}
                         </p>
                     {/if}
                 </div>
-            {/if}
+                {#if form.subdomain.length >= 3}
+                    <p class="text-[12px] text-zz-text-light">
+                        Jullie adres wordt: <strong>{form.subdomain}.wie-doet-wat.test</strong>
+                    </p>
+                {/if}
+            </div>
 
             <div class="flex flex-col gap-2">
                 <Label for="password">Wachtwoord</Label>
