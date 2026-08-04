@@ -15,6 +15,7 @@ class CreateTenantOwner
             'email' => $email,
             'password' => $password,
             'tenant_id' => $tenant->id,
+            'is_admin' => true,
         ]);
 
         TenantOwnerCreated::dispatch(

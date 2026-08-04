@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TenantHomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,12 @@ Route::middleware([
     Route::get('/home', TenantHomeController::class)
         ->name('tenant.home')
         ->middleware('auth');
+
+    Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
+        Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
+        Route::post('/tasks', [AdminController::class, 'storeTask'])->name('tasks.store');
+        Route::delete('/tasks/{task}', [AdminController::class, 'destroyTask'])->name('tasks.destroy');
+    });
 });
