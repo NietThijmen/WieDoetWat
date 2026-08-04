@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Task;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Models\UserTask;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,10 +23,19 @@ class DatabaseSeeder extends Seeder
         ]);
         $tenant->domains()->create(['domain' => 'test']);
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'tenant_id' => $tenant->id,
+        ]);
+
+        $tasks = Task::factory()->count(5)->create([
+            'tenant_id' => $tenant->id,
+        ]);
+
+        UserTask::factory()->count(3)->create([
+            'user_id' => $user->id,
+            'task_id' => fn () => $tasks->random()->id,
         ]);
     }
 }
