@@ -19,12 +19,12 @@ class UserTask extends Model
     protected $fillable = [
         'user_id',
         'task_id',
-        'due_date',
+        'due_at',
         'completed_at',
     ];
 
     protected $casts = [
-        'due_date' => 'datetime',
+        'due_at' => 'datetime',
         'completed_at' => 'datetime',
     ];
 

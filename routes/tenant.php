@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\TenantHomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -23,6 +25,14 @@ Route::middleware([
     'web',
 ])->group(function () {
     Route::get('/', function () {
+        if (Auth::check()) {
+            return redirect()->route('tenant.home');
+        }
+
         return 'This is your multi-tenant application. The id of the current tenant is '.tenant('id');
     });
+
+    Route::get('/home', TenantHomeController::class)
+        ->name('tenant.home')
+        ->middleware('auth');
 });

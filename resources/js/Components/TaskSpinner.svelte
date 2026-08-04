@@ -8,7 +8,7 @@
 
     interface Props {
         tasks: Task[];
-        targetTask: Task;
+        targetTask?: Task | null;
         title?: string;
         subtitle?: string;
         buttonText?: string;
@@ -18,7 +18,7 @@
 
     let {
         tasks,
-        targetTask,
+        targetTask = null,
         title = 'Wie doet wat?',
         subtitle = 'Draai aan het wiel om jouw taak te onthullen.',
         buttonText = 'Draai het wiel',
@@ -35,7 +35,7 @@
     let transitionDuration = $state(0)
     let lastTickIndex = $state(-1)
     let rafId: number | null = null
-    let audioElement: HTMLAudioElement | null = null
+    let audioElement: HTMLAudioElement | null = $state(null)
 
     const REPETITIONS = 11
     const TARGET_REPETITION = 10
@@ -52,7 +52,10 @@
 
     function buildItems(): SpinnerItem[] {
         const items: SpinnerItem[] = []
-        const targetIndex = Math.max(0, tasks.findIndex(task => task.id === targetTask.id))
+        const targetTaskId = targetTask?.id
+        const targetIndex = targetTaskId === undefined
+            ? 0
+            : Math.max(0, tasks.findIndex(task => task.id === targetTaskId))
 
         for (let repetition = 0; repetition < REPETITIONS; repetition++) {
             const isTargetRepetition = repetition === TARGET_REPETITION
@@ -159,7 +162,7 @@
     }
 
     function handleSpin(): void {
-        if (isSpinning || tasks.length === 0) return
+        if (isSpinning || tasks.length === 0 || !targetTask) return
 
         isSpinning = true
         hasSpun = false
@@ -241,7 +244,6 @@
             <div class="flex w-full flex-col gap-8">
                 <div class="flex w-full flex-col items-center justify-center rounded-lg">
                     <div class="flex h-80 w-1 bg-zz-background-50 absolute z-[9]" aria-hidden="true"></div>
-                    <div class="flex h-80 w-1 bg-zz-background-50 absolute z-[9]" aria-hidden="true"></div>
 
                     <div
                         bind:this={containerElement}
@@ -262,8 +264,8 @@
                                     class="task-item flex h-full items-center justify-center text-zz-text-white"
                                     class:bg-zz-primary-400={index % 2 === 0}
                                     class:bg-zz-secondary-400={index % 2 !== 0}
-                                    class:scale-125={hasSpun && item.id === targetTask.id && item.repetition === TARGET_REPETITION}
-                                    class:z-[1]={hasSpun && item.id === targetTask.id && item.repetition === TARGET_REPETITION}
+                                    class:scale-125={hasSpun && item.id === targetTask?.id && item.repetition === TARGET_REPETITION}
+                                    class:z-[1]={hasSpun && item.id === targetTask?.id && item.repetition === TARGET_REPETITION}
                                     style="min-width: 33.3334%; width: 33.3334%;"
                                     role="listitem"
                                 >
@@ -282,7 +284,7 @@
                     <button
                         type="button"
                         onclick={handleSpin}
-                        disabled={isSpinning || tasks.length === 0}
+                        disabled={isSpinning || tasks.length === 0 || !targetTask}
                         class="flex w-fit items-center justify-center overflow-hidden rounded-full bg-zz-secondary px-4 py-2 text-zz-text-white opacity-100 transition-opacity duration-200 hover:bg-zz-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <span>{buttonText}</span>
